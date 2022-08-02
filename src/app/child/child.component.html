@@ -1,0 +1,42 @@
+<div class="table-block">
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Task</th>
+            <th>Check</th>
+            <th>DONE/IN PROGRESS</th>
+            <th>Edit</th>
+            <th>DELETE</th>
+        </tr>
+        <tr *ngFor="let name of arrNames; index as i;">
+            <td><b>{{ i+1 }}</b></td>
+            <td>{{ name }}</td>
+            <td>
+                <input type="checkbox" [class]="name+i+'check-box'" (click)="check(i,name)">
+            </td>
+            <td [class]="name+i+'check'" style="color: red;" [textContent]="prInProg"></td>
+            <td>
+                <button class="btn-edit" (click)="checkEditStatus(i);toEditName()">Edit</button>
+            </td>
+            <td>
+                <button [class]="name+i+'dlt btn-dlt'" (click)="delete(i); deleteCountNum(true)"
+                    disabled>DELETE</button>
+            </td>
+        </tr>
+        <ng-container *ngIf="arrNames.length === 0">
+            <tr>
+                <td colspan="6" [class]="'no-task'"><span>All tasks done!</span></td>
+            </tr>
+        </ng-container>
+        <ng-container *ngIf="editStatus">
+            <tr>
+                <td colspan="4" [class]="'edit-inp-block'">
+                    <input type="text" class="edit-inp" [(ngModel)]="editName">
+                </td>
+                <td colspan="1" [class]="'btn-save-block'">
+                    <button class="btn-save" (click)="saveEdit()">save</button>
+                </td>
+            </tr>
+        </ng-container>
+    </table>
+</div>
